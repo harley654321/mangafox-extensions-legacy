@@ -7,12 +7,12 @@
       "id": "olympusscanlation",
       "name": "Olympus Scanlation",
       "lang": "es",
-      "version": 2,
+      "version": 3,
       "apiVersion": 1,
       "status": "beta",
       "description": "Catálogo en español de Olympus Scanlation: manhwa y manhua.",
       "manifest": "extensions/olympusscanlation/manifest.json",
-      "icon": "https://olympusxyz.com/favicon.ico"
+      "icon": "https://olympusxyz.com/olympus-logo-96.webp"
     }
   ]
 }
