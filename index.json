@@ -1,0 +1,17 @@
+{
+  "name": "Repo de extensiones MangaFox",
+  "apiVersion": 1,
+  "description": "Extensiones de fuentes de manga para la app MangaFox. Solo datos: todo el diseño y la experiencia corre dentro de la app.",
+  "extensions": [
+    {
+      "id": "olympusscanlation",
+      "name": "Olympus Scanlation",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "beta",
+      "description": "Catálogo en español de Olympus Scanlation: manhwa y manhua.",
+      "manifest": "extensions/olympusscanlation/manifest.json"
+    }
+  ]
+}

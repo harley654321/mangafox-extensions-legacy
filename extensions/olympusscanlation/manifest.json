@@ -1,0 +1,44 @@
+{
+  "id": "olympusscanlation",
+  "name": "Olympus Scanlation",
+  "lang": "es",
+  "version": 1,
+  "apiVersion": 1,
+  "description": "Catálogo en español de Olympus Scanlation: manhwa y manhua.",
+  "contentRating": "safe",
+
+  "network": {
+    "baseUrl": "https://olympusxyz.com",
+    "domainRecoveryUrl": "https://olympus.pages.dev",
+    "rateLimits": [
+      { "host": "main", "requests": 1, "seconds": 2 },
+      { "host": "panel", "requests": 2, "seconds": 1 }
+    ]
+  },
+
+  "content": {
+    "seriesType": "comic",
+    "detailPage": "/series/comic-{slug}",
+    "chapterPage": "/capitulo/{chapterId}/comic-{slug}"
+  },
+
+  "endpoints": {
+    "seriesList": "/api/series/list",
+    "popular": "/api/rankings?page={page}&period=total_ranking",
+    "latest": "/api/new-chapters?page={page}",
+    "details": "/api/series/{slug}?type=comic",
+    "chapters": {
+      "url": "/api/series/{slug}/chapters?page={page}&direction=desc&type=comic",
+      "host": "panel",
+      "paginated": true
+    },
+    "pages": "/api/capitulo/comic-{slug}/{chapterId}"
+  },
+
+  "statusMap": {
+    "1": "ONGOING",
+    "3": "HIATUS",
+    "4": "COMPLETED",
+    "5": "CANCELLED"
+  }
+}
