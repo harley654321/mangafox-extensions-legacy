@@ -12,7 +12,8 @@
       "status": "beta",
       "description": "Catálogo en español de Olympus Scanlation: manhwa y manhua.",
       "manifest": "extensions/olympusscanlation/manifest.json",
-      "icon": "https://olympusxyz.com/olympus-logo-96.webp"
+      "icon": "https://olympusxyz.com/olympus-logo-96.webp",
+      "baseUrl": "https://olympusxyz.com"
     },
     {
       "id": "manhwaweb",
@@ -23,7 +24,8 @@
       "status": "alpha",
       "description": "Manhwa y manhua en espanol. Fuente MIXTA: incluye secciones para adultos.",
       "manifest": "extensions/manhwaweb/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=manhwaweb.com&sz=128"
+      "icon": "https://www.google.com/s2/favicons?domain=manhwaweb.com&sz=128",
+      "baseUrl": "https://manhwaweb.com"
     },
     {
       "id": "mhscans",
@@ -34,7 +36,8 @@
       "status": "alpha",
       "description": "Scanlation en espanol: manga, manhwa y manhua.",
       "manifest": "extensions/mhscans/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128"
+      "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128",
+      "baseUrl": "https://mhscans.com"
     },
     {
       "id": "ragnascans",
@@ -45,7 +48,8 @@
       "status": "alpha",
       "description": "Ragna Scans en espanol, lectores propios.",
       "manifest": "extensions/ragnascans/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=lector.ragnascan.xyz&sz=128"
+      "icon": "https://www.google.com/s2/favicons?domain=lector.ragnascan.xyz&sz=128",
+      "baseUrl": "https://lector.ragnascan.xyz"
     },
     {
       "id": "richtoscan",
@@ -56,7 +60,8 @@
       "status": "alpha",
       "description": "RichtoScan en espanol.",
       "manifest": "extensions/richtoscan/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=r1.richtoon.top&sz=128"
+      "icon": "https://www.google.com/s2/favicons?domain=r1.richtoon.top&sz=128",
+      "baseUrl": "https://r1.richtoon.top"
     },
     {
       "id": "ikigaimangas",
@@ -67,7 +72,8 @@
       "status": "alpha",
       "description": "Manhwa en espanol. Contenido para adultos (+18).",
       "manifest": "extensions/ikigaimangas/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=ikigaimangas.com&sz=128"
+      "icon": "https://www.google.com/s2/favicons?domain=ikigaimangas.com&sz=128",
+      "baseUrl": "https://ikigaimangas.com"
     },
     {
       "id": "jeazscans",
@@ -78,7 +84,8 @@
       "status": "alpha",
       "description": "Jeaz Scans en espanol.",
       "manifest": "extensions/jeazscans/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=lectorhub.j5z.xyz&sz=128"
+      "icon": "https://www.google.com/s2/favicons?domain=lectorhub.j5z.xyz&sz=128",
+      "baseUrl": "https://lectorhub.j5z.xyz"
     },
     {
       "id": "mangacrab",
@@ -89,7 +96,8 @@
       "status": "alpha",
       "description": "Manga Crab en espanol: catalogo amplio de manga.",
       "manifest": "extensions/mangacrab/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=es.mangacrab.org&sz=128"
+      "icon": "https://www.google.com/s2/favicons?domain=es.mangacrab.org&sz=128",
+      "baseUrl": "https://es.mangacrab.org"
     }
   ]
 }
