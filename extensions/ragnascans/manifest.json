@@ -1,0 +1,31 @@
+{
+  "id": "ragnascans",
+  "name": "Ragna Scans",
+  "lang": "es",
+  "version": 1,
+  "apiVersion": 1,
+  "description": "Ragna Scans en espanol, lectores propios.",
+  "contentRating": "safe",
+  "status": "alpha",
+  "network": {
+    "baseUrl": "https://lector.ragnascan.xyz",
+    "domainRecoveryUrl": "https://lector.ragnascans.com",
+    "rateLimits": [
+      {
+        "host": "main",
+        "requests": 1,
+        "seconds": 3
+      }
+    ]
+  },
+  "parser": {
+    "type": "html-theme",
+    "reference": "keiyoushi/extensions-source: src/es/ragnascans",
+    "status": "pending",
+    "note": "Fuente de tema web (HTML). Los endpoints y selectores especificos se definen cuando la app implemente el parser de tema."
+  },
+  "content": {
+    "seriesType": "comic"
+  },
+  "icon": "https://www.google.com/s2/favicons?domain=lector.ragnascans.com&sz=128"
+}

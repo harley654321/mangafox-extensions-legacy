@@ -1,0 +1,31 @@
+{
+  "id": "manhwaweb",
+  "name": "ManhwaWeb",
+  "lang": "es",
+  "version": 1,
+  "apiVersion": 1,
+  "description": "Manhwa y manhua en espanol. Fuente MIXTA: incluye secciones para adultos.",
+  "contentRating": "mature",
+  "status": "alpha",
+  "network": {
+    "baseUrl": "https://manhwaweb.com",
+    "domainRecoveryUrl": "https://manhwaweb.com",
+    "rateLimits": [
+      {
+        "host": "main",
+        "requests": 1,
+        "seconds": 3
+      }
+    ]
+  },
+  "parser": {
+    "type": "html-theme",
+    "reference": "keiyoushi/extensions-source: src/es/manhwaweb",
+    "status": "pending",
+    "note": "Fuente de tema web (HTML). Los endpoints y selectores especificos se definen cuando la app implemente el parser de tema."
+  },
+  "content": {
+    "seriesType": "comic"
+  },
+  "icon": "https://www.google.com/s2/favicons?domain=manhwaweb.com&sz=128"
+}

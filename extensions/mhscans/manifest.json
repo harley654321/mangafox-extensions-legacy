@@ -1,0 +1,31 @@
+{
+  "id": "mhscans",
+  "name": "MHScans",
+  "lang": "es",
+  "version": 1,
+  "apiVersion": 1,
+  "description": "Scanlation en espanol: manga, manhwa y manhua.",
+  "contentRating": "safe",
+  "status": "alpha",
+  "network": {
+    "baseUrl": "https://mhscans.com",
+    "domainRecoveryUrl": "https://mhscans.com",
+    "rateLimits": [
+      {
+        "host": "main",
+        "requests": 1,
+        "seconds": 3
+      }
+    ]
+  },
+  "parser": {
+    "type": "html-theme",
+    "reference": "keiyoushi/extensions-source: src/es/mhscans",
+    "status": "pending",
+    "note": "Fuente de tema web (HTML). Los endpoints y selectores especificos se definen cuando la app implemente el parser de tema."
+  },
+  "content": {
+    "seriesType": "comic"
+  },
+  "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128"
+}

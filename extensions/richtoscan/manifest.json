@@ -1,0 +1,31 @@
+{
+  "id": "richtoscan",
+  "name": "RichtoScan",
+  "lang": "es",
+  "version": 1,
+  "apiVersion": 1,
+  "description": "RichtoScan en espanol.",
+  "contentRating": "safe",
+  "status": "alpha",
+  "network": {
+    "baseUrl": "https://r1.richtoon.top",
+    "domainRecoveryUrl": "https://richtoscan.com",
+    "rateLimits": [
+      {
+        "host": "main",
+        "requests": 1,
+        "seconds": 3
+      }
+    ]
+  },
+  "parser": {
+    "type": "html-theme",
+    "reference": "keiyoushi/extensions-source: src/es/richtoscan",
+    "status": "pending",
+    "note": "Fuente de tema web (HTML). Los endpoints y selectores especificos se definen cuando la app implemente el parser de tema."
+  },
+  "content": {
+    "seriesType": "comic"
+  },
+  "icon": "https://www.google.com/s2/favicons?domain=richtoscan.com&sz=128"
+}

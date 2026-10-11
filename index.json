@@ -13,6 +13,83 @@
       "description": "Catálogo en español de Olympus Scanlation: manhwa y manhua.",
       "manifest": "extensions/olympusscanlation/manifest.json",
       "icon": "https://olympusxyz.com/olympus-logo-96.webp"
+    },
+    {
+      "id": "manhwaweb",
+      "name": "ManhwaWeb",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "alpha",
+      "description": "Manhwa y manhua en espanol. Fuente MIXTA: incluye secciones para adultos.",
+      "manifest": "extensions/manhwaweb/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=manhwaweb.com&sz=128"
+    },
+    {
+      "id": "mhscans",
+      "name": "MHScans",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "alpha",
+      "description": "Scanlation en espanol: manga, manhwa y manhua.",
+      "manifest": "extensions/mhscans/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128"
+    },
+    {
+      "id": "ragnascans",
+      "name": "Ragna Scans",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "alpha",
+      "description": "Ragna Scans en espanol, lectores propios.",
+      "manifest": "extensions/ragnascans/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=lector.ragnascan.xyz&sz=128"
+    },
+    {
+      "id": "richtoscan",
+      "name": "RichtoScan",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "alpha",
+      "description": "RichtoScan en espanol.",
+      "manifest": "extensions/richtoscan/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=r1.richtoon.top&sz=128"
+    },
+    {
+      "id": "ikigaimangas",
+      "name": "Ikigai Mangas",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "alpha",
+      "description": "Manhwa en espanol. Contenido para adultos (+18).",
+      "manifest": "extensions/ikigaimangas/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=ikigaimangas.com&sz=128"
+    },
+    {
+      "id": "jeazscans",
+      "name": "Jeaz Scans",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "alpha",
+      "description": "Jeaz Scans en espanol.",
+      "manifest": "extensions/jeazscans/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=lectorhub.j5z.xyz&sz=128"
+    },
+    {
+      "id": "mangacrab",
+      "name": "Manga Crab",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "alpha",
+      "description": "Manga Crab en espanol: catalogo amplio de manga.",
+      "manifest": "extensions/mangacrab/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=es.mangacrab.org&sz=128"
     }
   ]
 }
