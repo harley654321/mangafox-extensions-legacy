@@ -48,7 +48,7 @@
       "status": "alpha",
       "description": "Ragna Scans en espanol, lectores propios.",
       "manifest": "extensions/ragnascans/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=lector.ragnascan.xyz&sz=128",
+      "icon": "https://lector.ragnascan.xyz/assets/Logo.png?v=20260511",
       "baseUrl": "https://lector.ragnascan.xyz"
     },
     {
@@ -60,7 +60,7 @@
       "status": "alpha",
       "description": "RichtoScan en espanol.",
       "manifest": "extensions/richtoscan/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=r1.richtoon.top&sz=128",
+      "icon": "https://r1.richtoon.top/wp-content/uploads/2017/10/1718126664946_11zon98.jpg",
       "baseUrl": "https://r1.richtoon.top"
     },
     {
