@@ -37,7 +37,8 @@
       "description": "Scanlation en espanol: manga, manhwa y manhua.",
       "manifest": "extensions/mhscans/manifest.json",
       "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128",
-      "baseUrl": "https://mhscans.com"
+      "baseUrl": "https://mhscans.com",
+      "theme": "madara"
     },
     {
       "id": "ragnascans",
@@ -61,7 +62,8 @@
       "description": "RichtoScan en espanol.",
       "manifest": "extensions/richtoscan/manifest.json",
       "icon": "https://r1.richtoon.top/wp-content/uploads/2017/10/1718126664946_11zon98.jpg",
-      "baseUrl": "https://r1.richtoon.top"
+      "baseUrl": "https://r1.richtoon.top",
+      "theme": "madara"
     },
     {
       "id": "ikigaimangas",
