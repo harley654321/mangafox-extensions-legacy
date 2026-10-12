@@ -2,11 +2,11 @@
   "id": "mangacrab",
   "name": "Manga Crab",
   "lang": "es",
-  "version": 1,
+  "version": 2,
   "apiVersion": 1,
   "description": "Manga Crab en espanol: catalogo amplio de manga.",
   "contentRating": "safe",
-  "status": "alpha",
+  "status": "beta",
   "network": {
     "baseUrl": "https://es.mangacrab.org",
     "domainRecoveryUrl": "https://es.mangacrab.org",
@@ -14,18 +14,28 @@
       {
         "host": "main",
         "requests": 1,
-        "seconds": 3
+        "seconds": 1
       }
     ]
   },
   "parser": {
-    "type": "html-theme",
+    "type": "json-api",
     "reference": "keiyoushi/extensions-source: src/es/mangacrab",
-    "status": "pending",
-    "note": "Fuente de tema web (HTML). Los endpoints y selectores especificos se definen cuando la app implemente el parser de tema."
+    "status": "active",
+    "endpoints": {
+      "directory": "/api/mv/mangas?page={page}&per_page=50&nsfw=false&nsfw_only=false&feed=discover",
+      "search": "/api/mv/mangas?page={page}&per_page=50&search={query}&nsfw=false",
+      "genreFilter": "&genres={genreId}",
+      "popularFeed": "feed=discover",
+      "latestFeed": "feed=updated",
+      "genres": "distilled from items[].genres[] {id,name,slug} (no taxonomy endpoint)",
+      "pagination": "{items, pagination:{page,per_page,total_items,total_pages,has_next}}"
+    },
+    "note": "API JSON 'mv' validada en vivo 2026-10-12: 1157 series, 50/pagina, has_next real. Portada en item.cover, permalink /series/{slug}/, estado item.status.label, generos embebidos."
   },
   "content": {
     "seriesType": "comic"
   },
-  "icon": "https://www.google.com/s2/favicons?domain=es.mangacrab.org&sz=128"
+  "icon": "https://www.google.com/s2/favicons?domain=es.mangacrab.org&sz=128",
+  "theme": "mangacrab"
 }
