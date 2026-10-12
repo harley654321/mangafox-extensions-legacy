@@ -19,13 +19,15 @@
       "id": "manhwaweb",
       "name": "ManhwaWeb",
       "lang": "es",
-      "version": 1,
+      "version": 2,
       "apiVersion": 1,
-      "status": "alpha",
+      "status": "beta",
       "description": "Manhwa y manhua en espanol. Fuente MIXTA: incluye secciones para adultos.",
       "manifest": "extensions/manhwaweb/manifest.json",
       "icon": "https://www.google.com/s2/favicons?domain=manhwaweb.com&sz=128",
-      "baseUrl": "https://manhwaweb.com"
+      "baseUrl": "https://manhwaweb.com",
+      "theme": "manhwaweb",
+      "apiUrl": "https://manhwawebbackend-production.up.railway.app"
     },
     {
       "id": "mhscans",

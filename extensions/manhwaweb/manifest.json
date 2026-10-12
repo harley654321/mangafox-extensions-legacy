@@ -2,11 +2,11 @@
   "id": "manhwaweb",
   "name": "ManhwaWeb",
   "lang": "es",
-  "version": 1,
+  "version": 2,
   "apiVersion": 1,
   "description": "Manhwa y manhua en espanol. Fuente MIXTA: incluye secciones para adultos.",
   "contentRating": "mature",
-  "status": "alpha",
+  "status": "beta",
   "network": {
     "baseUrl": "https://manhwaweb.com",
     "domainRecoveryUrl": "https://manhwaweb.com",
@@ -19,13 +19,23 @@
     ]
   },
   "parser": {
-    "type": "html-theme",
+    "type": "json-api",
     "reference": "keiyoushi/extensions-source: src/es/manhwaweb",
-    "status": "pending",
-    "note": "Fuente de tema web (HTML). Los endpoints y selectores especificos se definen cuando la app implemente el parser de tema."
+    "status": "active",
+    "apiUrl": "https://manhwawebbackend-production.up.railway.app",
+    "endpoints": {
+      "popular": "/manhwa/nuevos (top.manhwas_esp+manhwas_raw, dedupe por link, orden por numero=vistas)",
+      "latest": "/latest/new-manhwa (manhwas.manhwas_esp)",
+      "directory": "/manhwa/library?page={page}&erotico=no[&generes={genreId}][&buscar={query}]",
+      "genres": "27 ids oficiales del filtro del sitio (fijos)",
+      "pagination": "{data:[30 items], next}; fin = data vacia (pag ~145, ~4300 series)",
+      "item": "{_id, the_real_name/name_esp, _imagen, _status publicandose|finalizado}"
+    },
+    "note": "Validado en vivo 2026-10-12: page real pagina (primer item distinto), buscar filtra, generes filtra por id, erotico=no excluye adultos server-side. apiUrl en el INDEX permite migrar el backend sin tocar la apk."
   },
   "content": {
     "seriesType": "comic"
   },
-  "icon": "https://www.google.com/s2/favicons?domain=manhwaweb.com&sz=128"
+  "icon": "https://www.google.com/s2/favicons?domain=manhwaweb.com&sz=128",
+  "theme": "manhwaweb"
 }
