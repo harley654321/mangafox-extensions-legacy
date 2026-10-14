@@ -2,7 +2,7 @@
   "id": "manhwaweb",
   "name": "ManhwaWeb",
   "lang": "es",
-  "version": 2,
+  "version": 3,
   "apiVersion": 1,
   "description": "Manhwa y manhua en espanol. Fuente MIXTA: incluye secciones para adultos.",
   "contentRating": "mature",
@@ -22,7 +22,7 @@
     "type": "json-api",
     "reference": "keiyoushi/extensions-source: src/es/manhwaweb",
     "status": "active",
-    "apiUrl": "https://manhwawebbackend-production.up.railway.app",
+    "apiUrl": "https://api.manhwaweb.com",
     "endpoints": {
       "popular": "/manhwa/nuevos (top.manhwas_esp+manhwas_raw, dedupe por link, orden por numero=vistas)",
       "latest": "/latest/new-manhwa (manhwas.manhwas_esp)",
