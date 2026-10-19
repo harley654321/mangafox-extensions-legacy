@@ -103,6 +103,84 @@
       "icon": "https://www.google.com/s2/favicons?domain=es.mangacrab.org&sz=128",
       "baseUrl": "https://es.mangacrab.org",
       "theme": "mangacrab"
+    },
+    {
+      "id": "escenario-sinred",
+      "name": "Escenario: sin internet",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "test",
+      "description": "PRUEBA. Dominio .invalid (RFC 2606): DNS jamas resuelve. Reproduce SIN_CONEXION en toda la APK sin apagar la red.",
+      "manifest": "extensions/escenario-sinred/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+      "baseUrl": "https://fuera-de-linea-mx.invalid",
+      "theme": "olympus"
+    },
+    {
+      "id": "escenario-timeout",
+      "name": "Escenario: servidor congelado",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "test",
+      "description": "PRUEBA. IP TEST-NET-1 (RFC 5737): jamas enrutable, el connect se cuelga. Reproduce TIEMPO_AGOTADO (5 s x 3 intentos).",
+      "manifest": "extensions/escenario-timeout/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+      "baseUrl": "https://192.0.2.1",
+      "theme": "olympus"
+    },
+    {
+      "id": "escenario-servidor",
+      "name": "Escenario: pagina caida (404)",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "test",
+      "description": "PRUEBA. Los endpoints NO existen en el host: 404 real de CDN. Reproduce SERVIDOR con codigo real en el chip.",
+      "manifest": "extensions/escenario-servidor/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+      "baseUrl": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/escenarios/roto",
+      "theme": "olympus"
+    },
+    {
+      "id": "escenario-basura",
+      "name": "Escenario: respuesta basura",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "test",
+      "description": "PRUEBA. Endpoints responden 200 con HTML en vez de JSON. Reproduce INESPERADO (cuerpo no-JSON).",
+      "manifest": "extensions/escenario-basura/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+      "baseUrl": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/escenarios/basura",
+      "theme": "olympus"
+    },
+    {
+      "id": "escenario-vacio",
+      "name": "Escenario: sin datos",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "test",
+      "description": "PRUEBA. Endpoints responden 200 con JSON valido y listas VACIAS. Reproduce el vacio honesto (SIN RESULTADOS).",
+      "manifest": "extensions/escenario-vacio/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+      "baseUrl": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/escenarios/vacio",
+      "theme": "olympus"
+    },
+    {
+      "id": "escenario-sano",
+      "name": "Escenario: control sano",
+      "lang": "es",
+      "version": 1,
+      "apiVersion": 1,
+      "status": "test",
+      "description": "PRUEBA. Datos validos de 4 obras: A y B funcionan; C (obra-rota-c) ficha 404; D (obra-basura-d) ficha basura. Base para comparar errores.",
+      "manifest": "extensions/escenario-sano/manifest.json",
+      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
+      "baseUrl": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/escenarios/sano",
+      "theme": "olympus"
     }
   ]
 }
