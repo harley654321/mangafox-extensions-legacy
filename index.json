@@ -1,35 +1,8 @@
 {
   "name": "Repo de extensiones MangaFox",
   "apiVersion": 1,
-  "description": "Extensiones de fuentes de manga para la app MangaFox. Solo datos: todo el diseño y la experiencia corre dentro de la app.",
+  "description": "Extensiones .mfx (plugins compilados y firmados) para la app MangaFox. La APK es un kernel estable; cada fuente es un plugin .mfx con firma ECDSA.",
   "extensions": [
-    {
-      "id": "olympusscanlation",
-      "name": "Olympus Scanlation",
-      "lang": "es",
-      "version": 4,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Catálogo en español de Olympus Scanlation: manhwa y manhua.",
-      "manifest": "extensions/olympusscanlation/manifest.json",
-      "icon": "https://olympusxyz.com/olympus-logo-96.webp",
-      "baseUrl": "https://olympusxyz.com",
-      "theme": "olympus"
-    },
-    {
-      "id": "manhwaweb",
-      "name": "ManhwaWeb",
-      "lang": "es",
-      "version": 3,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Manhwa y manhua en espanol. Fuente MIXTA: incluye secciones para adultos.",
-      "manifest": "extensions/manhwaweb/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=manhwaweb.com&sz=128",
-      "baseUrl": "https://manhwaweb.com",
-      "theme": "manhwaweb",
-      "apiUrl": "https://api.manhwaweb.com"
-    },
     {
       "id": "mhscans",
       "name": "MHScans",
@@ -38,7 +11,7 @@
       "apiVersion": 1,
       "status": "beta",
       "description": "Scanlation en espanol: manga, manhwa y manhua.",
-      "manifest": "extensions/mhscans/manifest.json",
+      "manifest": "mfx/mhscans/manifest.json",
       "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128",
       "baseUrl": "https://mhscans.com",
       "theme": "madara",
@@ -51,165 +24,6 @@
       "fileHashMfx": "8896561e9feb3c2c23d9c328cf8ff27ece8b18fa7214d3feccea3671cfa62bda",
       "firmaMfx": "MEUCIQDfIni7KjvpjLGmIIxJ9f6J90ZIiTklgLV+9GgCn962HQIgQUhOAfpups1/mzaMxWk6qCK28YNZDYjeuzBT6Mtm4gg=",
       "versionMfx": 2
-    },
-    {
-      "id": "ragnascans",
-      "name": "Ragna Scans",
-      "lang": "es",
-      "version": 2,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Ragna Scans en espanol, lectores propios.",
-      "manifest": "extensions/ragnascans/manifest.json",
-      "icon": "https://lector.ragnascan.xyz/assets/Logo.png?v=20260511",
-      "baseUrl": "https://lector.ragnascan.xyz",
-      "recoveryUrl": "https://ragnascan.xyz",
-      "theme": "ragna"
-    },
-    {
-      "id": "richtoscan",
-      "name": "RichtoScan",
-      "lang": "es",
-      "version": 3,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "RichtoScan en espanol.",
-      "manifest": "extensions/richtoscan/manifest.json",
-      "icon": "https://r1.richtoon.top/wp-content/uploads/2017/10/1718126664946_11zon98.jpg",
-      "baseUrl": "https://r1.richtoon.top",
-      "theme": "madara",
-      "rateLimit": {
-        "requests": 2,
-        "seconds": 1
-      },
-      "recoveryUrl": "https://richtoscan.com"
-    },
-    {
-      "id": "ikigaimangas",
-      "name": "Ikigai Mangas",
-      "lang": "es",
-      "version": 3,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Manhwa en espanol. Contenido para adultos (+18).",
-      "manifest": "extensions/ikigaimangas/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=ikigaimangas.com&sz=128",
-      "baseUrl": "https://visorikigai.gettocaboca.com",
-      "rateLimit": {
-        "requests": 1,
-        "seconds": 2
-      },
-      "recoveryUrl": "https://ikigaimangas.com",
-      "theme": "ikigai"
-    },
-    {
-      "id": "jeazscans",
-      "name": "Jeaz Scans",
-      "lang": "es",
-      "version": 3,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Jeaz Scans en espanol.",
-      "manifest": "extensions/jeazscans/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=lectorhub.j5z.xyz&sz=128",
-      "baseUrl": "https://lectorhub.j5z.xyz",
-      "rateLimit": {
-        "requests": 2,
-        "seconds": 1
-      },
-      "recoveryUrl": "https://jeazscans.com",
-      "theme": "jeaz"
-    },
-    {
-      "id": "mangacrab",
-      "name": "Manga Crab",
-      "lang": "es",
-      "version": 2,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Manhwa y manhua en espanol via API JSON (tema mangacrab).",
-      "manifest": "extensions/mangacrab/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=es.mangacrab.org&sz=128",
-      "baseUrl": "https://es.mangacrab.org",
-      "theme": "mangacrab"
-    },
-    {
-      "id": "escenario-sinred",
-      "name": "Escenario: sin internet",
-      "lang": "es",
-      "version": 1,
-      "apiVersion": 1,
-      "status": "test",
-      "description": "PRUEBA. Dominio .invalid (RFC 2606): DNS jamas resuelve. Reproduce SIN_CONEXION en toda la APK sin apagar la red.",
-      "manifest": "extensions/escenario-sinred/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-      "baseUrl": "https://fuera-de-linea-mx.invalid",
-      "theme": "olympus"
-    },
-    {
-      "id": "escenario-timeout",
-      "name": "Escenario: servidor congelado",
-      "lang": "es",
-      "version": 1,
-      "apiVersion": 1,
-      "status": "test",
-      "description": "PRUEBA. IP TEST-NET-1 (RFC 5737): jamas enrutable, el connect se cuelga. Reproduce TIEMPO_AGOTADO (5 s x 3 intentos).",
-      "manifest": "extensions/escenario-timeout/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-      "baseUrl": "https://192.0.2.1",
-      "theme": "olympus"
-    },
-    {
-      "id": "escenario-servidor",
-      "name": "Escenario: pagina caida (404)",
-      "lang": "es",
-      "version": 1,
-      "apiVersion": 1,
-      "status": "test",
-      "description": "PRUEBA. Los endpoints NO existen en el host: 404 real de CDN. Reproduce SERVIDOR con codigo real en el chip.",
-      "manifest": "extensions/escenario-servidor/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-      "baseUrl": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/escenarios/roto",
-      "theme": "olympus"
-    },
-    {
-      "id": "escenario-basura",
-      "name": "Escenario: respuesta basura",
-      "lang": "es",
-      "version": 1,
-      "apiVersion": 1,
-      "status": "test",
-      "description": "PRUEBA. Endpoints responden 200 con HTML en vez de JSON. Reproduce INESPERADO (cuerpo no-JSON).",
-      "manifest": "extensions/escenario-basura/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-      "baseUrl": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/escenarios/basura",
-      "theme": "olympus"
-    },
-    {
-      "id": "escenario-vacio",
-      "name": "Escenario: sin datos",
-      "lang": "es",
-      "version": 1,
-      "apiVersion": 1,
-      "status": "test",
-      "description": "PRUEBA. Endpoints responden 200 con JSON valido y listas VACIAS. Reproduce el vacio honesto (SIN RESULTADOS).",
-      "manifest": "extensions/escenario-vacio/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-      "baseUrl": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/escenarios/vacio",
-      "theme": "olympus"
-    },
-    {
-      "id": "escenario-sano",
-      "name": "Escenario: control sano",
-      "lang": "es",
-      "version": 1,
-      "apiVersion": 1,
-      "status": "test",
-      "description": "PRUEBA. Datos validos de 4 obras: A y B funcionan; C (obra-rota-c) ficha 404; D (obra-basura-d) ficha basura. Base para comparar errores.",
-      "manifest": "extensions/escenario-sano/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=128",
-      "baseUrl": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/escenarios/sano",
-      "theme": "olympus"
     }
   ]
 }

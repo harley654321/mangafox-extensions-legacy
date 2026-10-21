@@ -1,15 +1,14 @@
-# Repo de extensiones MangaFox
+# Repo de extensiones MangaFox (sistema .mfx)
 
 Extensiones de **fuentes de manga** para la app [MangaFox](https://github.com/harley654321/MangaFox).
 
-Aquí solo viven **datos**: endpoints, dominios, mapeos y reglas de cada fuente.
-Todo el diseño y la experiencia de usuario corre dentro de la app MangaFox.
-Una extensión no es una APK ni se instala nada: la app importa este índice por
-un único enlace y las fuentes aparecen disponibles dentro de MangaFox.
+La APK de MangaFox es un **kernel estable**: no contiene fuentes. Cada fuente es
+un **plugin `.mfx`** compilado (ZIP con bytecode Kotlin) y **firmado con ECDSA**;
+la APK lo verifica (firma + SHA-256) antes de activarlo. Las extensiones de datos
+del sistema antiguo fueron retiradas por completo: este repo vive en el sistema
+`.mfx` con una única extensión, **mhscans**.
 
 ## Enlace único de importación
-
-La app importa este índice con un solo enlace:
 
 ```
 https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/index.json
@@ -18,37 +17,31 @@ https://raw.githubusercontent.com/harley654321/mangafox-extensions/main/index.js
 ## Estructura
 
 ```
-index.json                                 ← índice: lista todas las extensiones
-extensions/<id>/manifest.json              ← manifiesto de cada extensión
+index.json                        ← catálogo: una entrada por extensión .mfx
+mfx/<id>/                         ← código fuente del plugin (Kotlin, compila a .mfx)
+  ├─ manifest.json                ← id, version, apiVersion, pluginClassName
+  ├─ build.gradle.kts             ← módulo del plugin
+  └─ src/main/kotlin/.../         ← Fuente*.kt + Plugin*.kt (punto de entrada)
+api/                              ← superficie API pública congelada (vendored de la APK)
+  └─ com/harley/mangafox/...      ← modelos, parser, ClienteWeb, MangaFoxLog, FuenteMfx
+CONTRATO-EXTENSIONES.md           ← contrato obligatorio de cada extensión
+scripts/actualizar_index_mfx.py   ← registra hash+firma del .mfx recién construido
+builds (rama)                     ← artefactos .mfx publicados (rama builds)
 ```
 
-- `index.json`: catálogo general. Cada entrada apunta al manifiesto de su extensión.
-- `manifest.json`: define una fuente: identidad, red (baseUrl, recuperación de
-  dominio, rate limits), endpoints y mapeos (estados, tipos).
+## Reglas duras
 
-## Campos del manifiesto (apiVersion 1)
+- **Kotlin 1.9.24 SIEMPRE**: el mismo que la APK. Un Kotlin mayor provoca
+  `NoClassDefFoundError` en runtime (referencias a clases internas nuevas que
+  el stdlib de la APK no tiene). No se sube esta versión por capricho.
+- **apiVersion congelada**: la `api/` de este repo es la superficie pública
+  que la APK expone; cambia solo con el CONTRATO, nunca unilateralmente.
+- **Firma ECDSA obligatoria**: un .mfx sin firma válida es rechazado por el
+  Instalador de la APK.
+- Cada cambio de una extensión sube `version` (+1) y registra en `index.json`
+  el nuevo `fileHashMfx` + `firmaMfx` con `scripts/actualizar_index_mfx.py`.
 
-| Campo | Descripción |
-|---|---|
-| `id` | Identificador único de la fuente (alfanumérico) |
-| `name` / `lang` / `version` | Nombre visible, idioma (ISO 639-1), versión de la extensión |
-| `description` | Qué ofrece la fuente |
-| `contentRating` | `safe` / `mature` |
-| `network.baseUrl` | Dominio principal actual |
-| `network.domainRecoveryUrl` | Página de respaldo para redescubrir el dominio cuando cambia |
-| `network.rateLimits` | Límites de peticiones por host (`main`, `panel`) |
-| `content.seriesType` | Filtro de tipo de serie de la API (ej. `comic`) |
-| `endpoints.*` | Plantillas de URL con marcadores `{page}`, `{slug}`, `{chapterId}` |
-| `statusMap` | Mapeo de ids de estado de la API a estados de MangaFox |
+## Flujo de trabajo
 
-## Cómo agregar una extensión
-
-1. Crea la carpeta `extensions/<id>/` con su `manifest.json`.
-2. Registra la entrada correspondiente en `index.json`.
-3. La app detecta las novedades al refrescar el índice; no hay que instalar nada.
-
-## Nota
-
-Los dominios de las fuentes pueden cambiar. Cuando eso pasa, se actualiza el
-campo `network.baseUrl` en el manifiesto y la app se recupera sola; el resto
-de la extensión no cambia.
+El dueño compila los `.mfx` con `./gradlew` (wrapper 8.4) en su entorno y
+entrega logs; el agente analiza y corrige con evidencia. Sin CI.
