@@ -46,7 +46,11 @@
         "requests": 1,
         "seconds": 3
       },
-      "recoveryUrl": "https://mhscans.com"
+      "recoveryUrl": "https://mhscans.com",
+      "urlMfx": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/builds/mfx/mhscans.mfx",
+      "fileHashMfx": "2a90bd215a34508243bf4378ebd73d7b2a3d070f81da4083a0f1ac8d0b818fa4",
+      "firmaMfx": "MEUCIQC9jwdiW7jwpdRIRO+6Fjss7+vbyCPyz3JBuK1kXOtp5QIgKM66JFtic4Cyz+NqU4usjl2HBAkAdUZiOTRtTOm22wk=",
+      "versionMfx": 1
     },
     {
       "id": "ragnascans",
