@@ -5,3 +5,5 @@ rootProject.name = "mangafox-extensions"
 include(":api")
 include(":mfx-mhscans")
 project(":mfx-mhscans").projectDir = file("mfx/mhscans")
+include(":mfx-jeazscans")
+project(":mfx-jeazscans").projectDir = file("mfx/jeazscans")

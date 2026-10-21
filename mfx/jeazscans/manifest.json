@@ -1,0 +1,7 @@
+{
+  "id": "jeazscans",
+  "name": "Jeaz Scans",
+  "version": 1,
+  "apiVersion": 1,
+  "pluginClassName": "com.harley.mangafox.mfx.jeazscans.PluginJeazScans"
+}

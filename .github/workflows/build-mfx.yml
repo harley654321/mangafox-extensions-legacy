@@ -68,6 +68,9 @@ jobs:
           ./gradlew --no-daemon :mfx-mhscans:construirMfx \
             -PsdkAndroid="$ANDROID_HOME" \
             -PllaveMfx="$PWD/llave-mfx.pem"
+          ./gradlew --no-daemon :mfx-jeazscans:construirMfx \
+            -PsdkAndroid="$ANDROID_HOME" \
+            -PllaveMfx="$PWD/llave-mfx.pem"
           rm -f llave-raw.pem llave-mfx.pem
 
       - name: Publicar index en main
@@ -88,11 +91,12 @@ jobs:
         run: |
           mkdir -p pub/mfx
           cp mfx/mhscans/build/mfx/mhscans.mfx pub/mfx/
+          cp mfx/jeazscans/build/mfx/jeazscans.mfx pub/mfx/
           cd pub
           git init -q
           git config user.name "mfx-ci"
           git config user.email "ci@users.noreply.github.com"
           git checkout -q -b builds
           git add mfx
-          git commit -q -m "build mfx: mhscans v3 firmado y verificado"
+          git commit -q -m "build mfx: firmados y verificados (mhscans + jeazscans)"
           git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/harley654321/mangafox-extensions.git" builds
