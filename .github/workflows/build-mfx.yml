@@ -27,26 +27,6 @@ jobs:
         with:
           path: ext
 
-      - name: Checkout apk MangaFox (deploy key via GIT_SSH_COMMAND)
-        run: |
-          printf '%s' "\${{ secrets.MFX_SSH_APK }}" > /tmp/mfx-ci-key
-          chmod 600 /tmp/mfx-ci-key
-          mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
-          export GIT_SSH_COMMAND="ssh -i /tmp/mfx-ci-key -o StrictHostKeyChecking=yes"
-          mkdir -p MangaFox
-          git clone --depth 1 git@github.com:harley654321/MangaFox.git MangaFox
-          rm -f /tmp/mfx-ci-key
-
-      - name: Diagnostico ssh (temporal)
-        run: |
-          printf '%s' "${{ secrets.MFX_SSH_APK }}" > /tmp/k
-          chmod 600 /tmp/k
-          ssh-keygen -y -f /tmp/k > /dev/null && echo "A: ssh-keygen ok"
-          ssh-keygen -lf /tmp/k | head -1
-          ssh -V 2>&1
-          ssh -i /tmp/k -o StrictHostKeyChecking=no -T git@github.com 2>&1 | head -6 || true
-          ls -la /usr/lib/ssh* 2>/dev/null | head -2; ldd \$(which ssh) | grep -i crypto
-
       - name: JDK 17
         uses: actions/setup-java@v4
         with:
@@ -61,22 +41,6 @@ jobs:
           yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" >/dev/null 2>&1
           echo "ANDROID_JAR=$ANDROID_HOME/platforms/android-35/android.jar" >> "$GITHUB_ENV"
           echo "D8=$ANDROID_HOME/build-tools/35.0.0/d8" >> "$GITHUB_ENV"
-
-      - name: Copiar superficie API congelada
-        run: |
-          SRC=MangaFox/app/src/main/java/com/harley/mangafox
-          DST=ext/api/src/main/kotlin/com/harley/mangafox
-          mkdir -p "$DST"/{mfx/api,data/parser,data/web,debug,logic/home,logic/detalle,logic/lector,logic/directorio}
-          cp "$SRC/mfx/api/FuenteMfx.kt"            "$DST/mfx/api/"
-          cp "$SRC/data/parser/TemaFuente.kt"       "$DST/data/parser/"
-          cp "$SRC/data/parser/MiniHtml.kt"         "$DST/data/parser/"
-          cp "$SRC/data/web/ClienteWeb.kt"          "$DST/data/web/"
-          cp "$SRC/debug/MangaFoxLog.kt"            "$DST/debug/"
-          cp "$SRC/logic/home/ObraHome.kt"          "$DST/logic/home/"
-          cp "$SRC/logic/detalle/ObraDetalle.kt"    "$DST/logic/detalle/"
-          cp "$SRC/logic/detalle/Capitulo.kt"       "$DST/logic/detalle/"
-          cp "$SRC/logic/lector/PaginasCapitulo.kt" "$DST/logic/lector/"
-          cp "$SRC/logic/directorio/Genero.kt"      "$DST/logic/directorio/"
 
       - name: Compilar api.jar y extension
         working-directory: ext
