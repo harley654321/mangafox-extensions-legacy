@@ -1,7 +1,7 @@
 {
   "id": "mhscans",
   "name": "MHScans",
-  "version": 2,
+  "version": 3,
   "apiVersion": 1,
   "pluginClassName": "com.harley.mangafox.mfx.mhscans.PluginMhscans"
 }

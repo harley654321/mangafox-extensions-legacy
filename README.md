@@ -31,9 +31,11 @@ builds (rama)                     ← artefactos .mfx publicados (rama builds)
 
 ## Reglas duras
 
-- **Kotlin 1.9.24 SIEMPRE**: el mismo que la APK. Un Kotlin mayor provoca
-  `NoClassDefFoundError` en runtime (referencias a clases internas nuevas que
-  el stdlib de la APK no tiene). No se sube esta versión por capricho.
+- **Kotlin 2.2.10 = el de la APK**: la nueva APK MangaFox (plantilla
+  TemplateIDE, Kotlin integrado 2.2.10, BUILD SUCCESSFUL del dueño oct-2026).
+  REGLA INVARIANTABLE: el Kotlin de la fábrica siempre es el mismo que el de
+  la APK, jamás mayor (un Kotlin mayor revienta en runtime con
+  `NoClassDefFoundError`: clase interna que el stdlib de la APK no tiene).
 - **apiVersion congelada**: la `api/` de este repo es la superficie pública
   que la APK expone; cambia solo con el CONTRATO, nunca unilateralmente.
 - **Firma ECDSA obligatoria**: un .mfx sin firma válida es rechazado por el
