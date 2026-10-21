@@ -1,51 +1,51 @@
 {
-  "name": "Repo de extensiones MangaFox",
-  "apiVersion": 1,
-  "description": "Extensiones .mfx (plugins compilados y firmados) para la app MangaFox. La APK es un kernel estable; cada fuente es un plugin .mfx con firma ECDSA.",
-  "extensions": [
-    {
-      "id": "mhscans",
-      "name": "MHScans",
-      "lang": "es",
-      "version": 4,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Scanlation en espanol: manga, manhwa y manhua.",
-      "manifest": "mfx/mhscans/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128",
-      "baseUrl": "https://mhscans.com",
-      "theme": "madara",
-      "rateLimit": {
-        "requests": 1,
-        "seconds": 3
-      },
-      "recoveryUrl": "https://mhscans.com",
-      "urlMfx": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/builds/mfx/mhscans.mfx",
-      "fileHashMfx": "21ec42669f0042e1af889fb8c5f3aee922ed62de1addd679471353cb3a601ae0",
-      "firmaMfx": "MEUCIQDCrPuMq2/atnR+WUOiNaNjklo7yNjKD9P3bGckzMJdzgIgCEM/zMSBcgdNkrvlCqXQvDtVgijAtCZmS/P2sBpxKbQ=",
-      "versionMfx": 4
-    },
-    {
-      "id": "jeazscans",
-      "name": "Jeaz Scans",
-      "lang": "es",
-      "version": 2,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Jeaz Scans en espanol: manga, manhwa y manhua (LectorHub).",
-      "manifest": "mfx/jeazscans/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=lectorhub.j5z.xyz&sz=128",
-      "baseUrl": "https://lectorhub.j5z.xyz",
-      "theme": "jeaz",
-      "rateLimit": {
-        "requests": 2,
-        "seconds": 1
-      },
-      "recoveryUrl": "https://jeazscans.com",
-      "urlMfx": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/builds/mfx/jeazscans.mfx",
-      "fileHashMfx": "1a4bf3b1949c5999b1ecd39db09764daabbd0af74bfeee89dfdbf04e0410208d",
-      "firmaMfx": "MEQCIEjPfK5BjofU7R56F+cA2K9PES9ab9a5pI2u8sJbSs/oAiAVsY6OinwDQxPeKsZUZ8Sxv1NlrOwOJjGaswFXcXsP7A==",
-      "versionMfx": 1
-    }
-  ]
+    "name": "Repo de extensiones MangaFox",
+    "apiVersion": 1,
+    "description": "Extensiones .mfx (plugins compilados y firmados) para la app MangaFox. La APK es un kernel estable; cada fuente es un plugin .mfx con firma ECDSA.",
+    "extensions": [
+        {
+            "id": "mhscans",
+            "name": "MHScans",
+            "lang": "es",
+            "version": 4,
+            "apiVersion": 1,
+            "status": "beta",
+            "description": "Scanlation en espanol: manga, manhwa y manhua.",
+            "manifest": "mfx/mhscans/manifest.json",
+            "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128",
+            "baseUrl": "https://mhscans.com",
+            "theme": "madara",
+            "rateLimit": {
+                "requests": 1,
+                "seconds": 3
+            },
+            "recoveryUrl": "https://mhscans.com",
+            "urlMfx": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/builds/mfx/mhscans.mfx",
+            "fileHashMfx": "bff42278b3735999a079d8902e7d467a37abb7d4b709dcd39350e0d732003fb0",
+            "firmaMfx": "MEQCICURc0XCsTRwbJU/dCs6S46l4oUyBkEJBS6j7csAzSmnAiAlSKLWkz+wdPBYwsItMLQsVqrJM4+qiVdH/eAwvkQDIQ==",
+            "versionMfx": 4
+        },
+        {
+            "id": "jeazscans",
+            "name": "Jeaz Scans",
+            "lang": "es",
+            "version": 2,
+            "apiVersion": 1,
+            "status": "beta",
+            "description": "Jeaz Scans en espanol: manga, manhwa y manhua (LectorHub).",
+            "manifest": "mfx/jeazscans/manifest.json",
+            "icon": "https://www.google.com/s2/favicons?domain=lectorhub.j5z.xyz&sz=128",
+            "baseUrl": "https://lectorhub.j5z.xyz",
+            "theme": "jeaz",
+            "rateLimit": {
+                "requests": 2,
+                "seconds": 1
+            },
+            "recoveryUrl": "https://jeazscans.com",
+            "urlMfx": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/builds/mfx/jeazscans.mfx",
+            "fileHashMfx": "843263f5b14c61de48443c326e9e797b91bff59096534cfd8e658f44c6437e6c",
+            "firmaMfx": "MEUCIQCn7hjtzWCdq3Mxd2XrMe6fQvFUtQOkB9f2c3NTi6288QIgZfmKyopn/BRVtp0rHz+E0bIxhnuVJxcZo0kgJskz6BI=",
+            "versionMfx": 2
+        }
+    ]
 }
