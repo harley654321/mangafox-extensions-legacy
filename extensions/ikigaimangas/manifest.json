@@ -2,19 +2,19 @@
   "id": "ikigaimangas",
   "name": "Ikigai Mangas",
   "lang": "es",
-  "version": 1,
+  "version": 2,
   "apiVersion": 1,
   "description": "Manhwa en espanol. Contenido para adultos (+18).",
   "contentRating": "mature",
   "status": "alpha",
   "network": {
-    "baseUrl": "https://ikigaimangas.com",
+    "baseUrl": "https://visorikigai.gettocaboca.com",
     "domainRecoveryUrl": "https://ikigaimangas.com",
     "rateLimits": [
       {
         "host": "main",
         "requests": 1,
-        "seconds": 3
+        "seconds": 2
       }
     ]
   },

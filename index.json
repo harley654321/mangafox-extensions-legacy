@@ -63,38 +63,50 @@
       "id": "richtoscan",
       "name": "RichtoScan",
       "lang": "es",
-      "version": 1,
+      "version": 2,
       "apiVersion": 1,
       "status": "alpha",
       "description": "RichtoScan en espanol.",
       "manifest": "extensions/richtoscan/manifest.json",
       "icon": "https://r1.richtoon.top/wp-content/uploads/2017/10/1718126664946_11zon98.jpg",
       "baseUrl": "https://r1.richtoon.top",
-      "theme": "madara"
+      "theme": "madara",
+      "rateLimit": {
+        "requests": 2,
+        "seconds": 1
+      }
     },
     {
       "id": "ikigaimangas",
       "name": "Ikigai Mangas",
       "lang": "es",
-      "version": 1,
+      "version": 2,
       "apiVersion": 1,
       "status": "alpha",
       "description": "Manhwa en espanol. Contenido para adultos (+18).",
       "manifest": "extensions/ikigaimangas/manifest.json",
       "icon": "https://www.google.com/s2/favicons?domain=ikigaimangas.com&sz=128",
-      "baseUrl": "https://ikigaimangas.com"
+      "baseUrl": "https://visorikigai.gettocaboca.com",
+      "rateLimit": {
+        "requests": 1,
+        "seconds": 2
+      }
     },
     {
       "id": "jeazscans",
       "name": "Jeaz Scans",
       "lang": "es",
-      "version": 1,
+      "version": 2,
       "apiVersion": 1,
       "status": "alpha",
       "description": "Jeaz Scans en espanol.",
       "manifest": "extensions/jeazscans/manifest.json",
       "icon": "https://www.google.com/s2/favicons?domain=lectorhub.j5z.xyz&sz=128",
-      "baseUrl": "https://lectorhub.j5z.xyz"
+      "baseUrl": "https://lectorhub.j5z.xyz",
+      "rateLimit": {
+        "requests": 2,
+        "seconds": 1
+      }
     },
     {
       "id": "mangacrab",
