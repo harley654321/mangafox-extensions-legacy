@@ -37,6 +37,16 @@ jobs:
           git clone --depth 1 git@github.com:harley654321/MangaFox.git MangaFox
           rm -f /tmp/mfx-ci-key
 
+      - name: Diagnostico ssh (temporal)
+        run: |
+          printf '%s' "${{ secrets.MFX_SSH_APK }}" > /tmp/k
+          chmod 600 /tmp/k
+          ssh-keygen -y -f /tmp/k > /dev/null && echo "A: ssh-keygen ok"
+          ssh-keygen -lf /tmp/k | head -1
+          ssh -V 2>&1
+          ssh -i /tmp/k -o StrictHostKeyChecking=no -T git@github.com 2>&1 | head -6 || true
+          ls -la /usr/lib/ssh* 2>/dev/null | head -2; ldd \$(which ssh) | grep -i crypto
+
       - name: JDK 17
         uses: actions/setup-java@v4
         with:
