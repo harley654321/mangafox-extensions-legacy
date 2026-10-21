@@ -33,12 +33,18 @@ jobs:
           distribution: temurin
           java-version: "17"
 
-      - name: Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Plataforma y build-tools
+      - name: Plataforma y build-tools (SDK del runner)
         run: |
-          yes | sdkmanager "platforms;android-35" "build-tools;35.0.0" >/dev/null 2>&1
+          # El runner ya trae el SDK preinstalado; la accion
+          # setup-android@v3 crashea con Node 24 (corrida 39551357712).
+          if [ -z "$ANDROID_HOME" ]; then
+            echo "ANDROID_HOME=/usr/local/lib/android/sdk" >> "$GITHUB_ENV"
+            export ANDROID_HOME=/usr/local/lib/android/sdk
+          fi
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          [ -x "$SDKMANAGER" ] || SDKMANAGER=sdkmanager
+          yes | "$SDKMANAGER" --licenses >/dev/null 2>&1 || true
+          yes | "$SDKMANAGER" "platforms;android-35" "build-tools;35.0.0" >/dev/null
           echo "ANDROID_JAR=$ANDROID_HOME/platforms/android-35/android.jar" >> "$GITHUB_ENV"
           echo "D8=$ANDROID_HOME/build-tools/35.0.0/d8" >> "$GITHUB_ENV"
 
