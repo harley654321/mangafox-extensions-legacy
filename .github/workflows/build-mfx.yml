@@ -27,6 +27,16 @@ jobs:
         with:
           path: ext
 
+      - name: Diagnostico llave (temporal)
+        run: |
+          printf '%s' "${{ secrets.MFX_SSH_APK }}" > /tmp/k
+          chmod 600 /tmp/k
+          echo "bytes: $(wc -c < /tmp/k)"
+          echo "md5: $(md5sum /tmp/k | cut -c1-12)"
+          echo "primera: $(head -c 31 /tmp/k)"
+          echo "ultima: $(tail -c 29 /tmp/k)"
+          ssh-keygen -y -f /tmp/k > /dev/null && echo "PARSEA ok" || echo "NO PARSEA"
+
       - name: Checkout apk MangaFox
         uses: actions/checkout@v4
         with:
