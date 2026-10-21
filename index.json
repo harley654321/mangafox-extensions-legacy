@@ -1,29 +1,29 @@
 {
-  "name": "Repo de extensiones MangaFox",
-  "apiVersion": 1,
-  "description": "Extensiones .mfx (plugins compilados y firmados) para la app MangaFox. La APK es un kernel estable; cada fuente es un plugin .mfx con firma ECDSA.",
-  "extensions": [
-    {
-      "id": "mhscans",
-      "name": "MHScans",
-      "lang": "es",
-      "version": 4,
-      "apiVersion": 1,
-      "status": "beta",
-      "description": "Scanlation en espanol: manga, manhwa y manhua.",
-      "manifest": "mfx/mhscans/manifest.json",
-      "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128",
-      "baseUrl": "https://mhscans.com",
-      "theme": "madara",
-      "rateLimit": {
-        "requests": 1,
-        "seconds": 3
-      },
-      "recoveryUrl": "https://mhscans.com",
-      "urlMfx": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/builds/mfx/mhscans.mfx",
-      "fileHashMfx": "5218d7a7c2ab0b940606859222cdd306424aaf589f867844c19fc096a64226d9",
-      "firmaMfx": "MEUCIDYo7/RT9AwQBc5My7chxfbKJF56P6B55JzO5IJwAUd3AiEA8cDwueo4y+MH8bKnGvmjjEhlcSvxJ3s8hFY9FbUNmwE=",
-      "versionMfx": 3
-    }
-  ]
+    "name": "Repo de extensiones MangaFox",
+    "apiVersion": 1,
+    "description": "Extensiones .mfx (plugins compilados y firmados) para la app MangaFox. La APK es un kernel estable; cada fuente es un plugin .mfx con firma ECDSA.",
+    "extensions": [
+        {
+            "id": "mhscans",
+            "name": "MHScans",
+            "lang": "es",
+            "version": 4,
+            "apiVersion": 1,
+            "status": "beta",
+            "description": "Scanlation en espanol: manga, manhwa y manhua.",
+            "manifest": "mfx/mhscans/manifest.json",
+            "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128",
+            "baseUrl": "https://mhscans.com",
+            "theme": "madara",
+            "rateLimit": {
+                "requests": 1,
+                "seconds": 3
+            },
+            "recoveryUrl": "https://mhscans.com",
+            "urlMfx": "https://raw.githubusercontent.com/harley654321/mangafox-extensions/builds/mfx/mhscans.mfx",
+            "fileHashMfx": "9bc4d53c8bc6982fc027a06d7407e55afb6b44436d00b3fca5ef4d203e13b5f6",
+            "firmaMfx": "MEQCIDN0wW4T2oCZQGQa5fulhqM1VMResmfF/BThHMmjfqCZAiBc+5w5BVgeKVHQVnDtaryzTSE5zucM1W05RBbzl/4ZBw==",
+            "versionMfx": 4
+        }
+    ]
 }
