@@ -175,8 +175,11 @@ class FuenteMhscans(contexto: ContextoMfx) : FuenteMfx {
     override suspend fun cargarPopulares(): List<ObraHome> =
         parsear(web.getHtml("/manga/?m_orderby=views"))
 
+    // RANKING = rating REAL (decision del dueno 21-oct: views era un
+    // disfraz de Populares y duplicaba sus paginas al sitio; el sitio
+    // soporta m_orderby=rating, lista distinta verificada en vivo).
     override suspend fun cargarRanking(): List<ObraHome> =
-        parsear(web.getHtml("/manga/page/2/?m_orderby=views"))
+        parsear(web.getHtml("/manga/?m_orderby=rating"))
 
     override suspend fun cargarSeccion(
         seccion: Seccion,
@@ -185,7 +188,7 @@ class FuenteMhscans(contexto: ContextoMfx) : FuenteMfx {
         val (base, pag) = when (seccion) {
             Seccion.RECIENTES -> "/manga/?m_orderby=latest" to pagina
             Seccion.POPULARES -> "/manga/?m_orderby=views" to pagina
-            Seccion.RANKING -> "/manga/?m_orderby=views" to pagina + 1
+            Seccion.RANKING -> "/manga/?m_orderby=rating" to pagina
         }
         val ruta = if (pag <= 1) base
         else base.replace("/manga/", "/manga/page/" + pag + "/")
