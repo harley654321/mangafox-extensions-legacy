@@ -1,0 +1,10 @@
+# La llave PRIVADA jamas entra al repo (solo la publica, que
+# pertenece al repo: es la que la APK tiene pineada).
+*.pem
+llave*
+!firmas/llave-publica.pem
+# Entorno local (AndroidIDE) y salidas de build.
+local.properties
+.gradle/
+build/
+dist/

@@ -1,0 +1,98 @@
+# Fabrica MFX estilo Cloudstream: el repo compila sus plugins.
+# En cada push a main que toque una extension, la superficie api/ o
+# el build, este workflow:
+#   1. Compila con el Kotlin de la APK (2.2.10, wrapper Gradle 8.4).
+#   2. Ensambla el .mfx (jar -> d8 -> zip) con la tarea Gradle
+#      construirMfx (100% JDK: sin openssl ni python).
+#   3. Firma ECDSA P-256 con la llave privada del secret
+#      MFX_LLAVE_PRIVADA y AUTO-VERIFICA contra firmas/llave-publica.pem
+#      (la clave pineada en la APK) antes de tocar nada.
+#   4. Publica: index.json actualizado en main + .mfx en la rama
+#      builds (commit vigente reemplazado).
+name: build-mfx
+
+on:
+  push:
+    branches: [main]
+    paths: ["mfx/**", "api/**", "index.json", "settings.gradle.kts",
+            "build.gradle.kts", "gradle.properties", "firmas/**",
+            ".github/workflows/build-mfx.yml"]
+  workflow_dispatch:
+
+concurrency:
+  group: build-mfx
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout extensiones
+        uses: actions/checkout@v4
+
+      - name: JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Plataforma y build-tools (SDK del runner)
+        run: |
+          # El runner ya trae el SDK preinstalado; la accion
+          # setup-android@v3 crashea con Node 24 (corrida 39551357712).
+          if [ -z "$ANDROID_HOME" ]; then
+            echo "ANDROID_HOME=/usr/local/lib/android/sdk" >> "$GITHUB_ENV"
+            export ANDROID_HOME=/usr/local/lib/android/sdk
+          fi
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+          [ -x "$SDKMANAGER" ] || SDKMANAGER=sdkmanager
+          yes | "$SDKMANAGER" --licenses >/dev/null 2>&1 || true
+          yes | "$SDKMANAGER" "platforms;android-36" "build-tools;36.0.0" >/dev/null
+
+      - name: Ensamblar, firmar y auto-verificar
+        env:
+          MFX_LLAVE_PRIVADA: ${{ secrets.MFX_LLAVE_PRIVADA }}
+        run: |
+          set -e
+          # La tarea Gradle exige PEM PKCS#8; el secret puede ser
+          # SEC1 (BEGIN EC PRIVATE KEY): se normaliza aqui.
+          printf '%s' "$MFX_LLAVE_PRIVADA" > llave-raw.pem
+          if grep -q "BEGIN PRIVATE KEY" llave-raw.pem; then
+            mv llave-raw.pem llave-mfx.pem
+          else
+            openssl pkcs8 -topk8 -nocrypt -in llave-raw.pem -out llave-mfx.pem
+          fi
+          chmod +x gradlew
+          ./gradlew --no-daemon :mfx-mhscans:construirMfx \
+            -PsdkAndroid="$ANDROID_HOME" \
+            -PllaveMfx="$PWD/llave-mfx.pem"
+          rm -f llave-raw.pem llave-mfx.pem
+
+      - name: Publicar index en main
+        run: |
+          git config user.name "mfx-ci"
+          git config user.email "ci@users.noreply.github.com"
+          if git diff --quiet index.json; then
+            echo "index sin cambios"
+          else
+            git add index.json
+            git commit -m "build(mfx): mhscans publicado por CI [skip ci]"
+            git push
+          fi
+
+      - name: Publicar .mfx en rama builds
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mkdir -p pub/mfx
+          cp mfx/mhscans/build/mfx/mhscans.mfx pub/mfx/
+          cd pub
+          git init -q
+          git config user.name "mfx-ci"
+          git config user.email "ci@users.noreply.github.com"
+          git checkout -q -b builds
+          git add mfx
+          git commit -q -m "build mfx: mhscans v3 firmado y verificado"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/harley654321/mangafox-extensions.git" builds
