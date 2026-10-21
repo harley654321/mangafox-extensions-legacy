@@ -27,23 +27,15 @@ jobs:
         with:
           path: ext
 
-      - name: Diagnostico llave (temporal)
+      - name: Checkout apk MangaFox (deploy key via GIT_SSH_COMMAND)
         run: |
-          printf '%s' "${{ secrets.MFX_SSH_APK }}" > /tmp/k
-          chmod 600 /tmp/k
-          echo "bytes: $(wc -c < /tmp/k)"
-          echo "md5: $(md5sum /tmp/k | cut -c1-12)"
-          echo "primera: $(head -c 31 /tmp/k)"
-          echo "ultima: $(tail -c 29 /tmp/k)"
-          ssh-keygen -y -f /tmp/k > /dev/null && echo "PARSEA ok" || echo "NO PARSEA"
-
-      - name: Checkout apk MangaFox
-        uses: actions/checkout@v4
-        with:
-          repository: harley654321/MangaFox
-          path: MangaFox
-          ssh-key: \${{ secrets.MFX_SSH_APK }}
-          ssh-strict: true
+          printf '%s' "\${{ secrets.MFX_SSH_APK }}" > /tmp/mfx-ci-key
+          chmod 600 /tmp/mfx-ci-key
+          mkdir -p ~/.ssh && ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
+          export GIT_SSH_COMMAND="ssh -i /tmp/mfx-ci-key -o StrictHostKeyChecking=yes"
+          mkdir -p MangaFox
+          git clone --depth 1 git@github.com:harley654321/MangaFox.git MangaFox
+          rm -f /tmp/mfx-ci-key
 
       - name: JDK 17
         uses: actions/setup-java@v4
