@@ -93,6 +93,8 @@ jobs:
           cp ext/dist/mhscans.mfx pub/mfx/
           cd pub
           git init -q
+          git config user.name "mfx-ci"
+          git config user.email "ci@users.noreply.github.com"
           git checkout -q -b builds
           git add mfx
           git commit -q -m "build mfx $GITHUB_SHA"
