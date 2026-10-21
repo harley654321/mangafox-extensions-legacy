@@ -82,8 +82,40 @@ class FuenteJeazScans(contexto: ContextoMfx) : FuenteMfx {
     override suspend fun cargarRanking(): List<ObraHome> =
         desdeHome("popular-card")
 
-    override suspend fun cargarRecientes(): List<ObraHome> =
-        desdeHome("release-card")
+    /** Recientes del home: article.release-card con a.release-cover
+     *  (aria-label) e img (alt). El anchor YA NO lleva la marca
+     *  release-card (log 760: el regex del viejo TemaJeaz daba 0
+     *  aqui; el sitio movio la marca al article). Bloque por
+     *  article, verificado en vivo 21-oct: 12 recientes. */
+    override suspend fun cargarRecientes(): List<ObraHome> {
+        val html = home() ?: return emptyList()
+        val vistos = mutableSetOf<String>()
+        return withContext(Dispatchers.IO) {
+            Regex(
+                "<article class=\"release-card[^>]*>(.*?)</article>",
+                DOT_MATCHES_ALL
+            ).findAll(html).mapNotNull { b ->
+                val bloque = b.groupValues[1]
+                val id = Regex("href=\"manga\\.php\\?id=(\\d+)\"")
+                    .find(bloque)?.groupValues?.get(1) ?: return@mapNotNull null
+                if (!vistos.add(id)) return@mapNotNull null
+                val img = Regex("<img[^>]*>").find(bloque)?.value
+                    ?: return@mapNotNull null
+                val portada = Regex("src=\"([^\"]+)\"").find(img)
+                    ?.groupValues?.get(1)?.let { resolver(it) }
+                    ?: return@mapNotNull null
+                val titulo = Regex("alt=\"([^\"]*)\"").find(img)
+                    ?.groupValues?.get(1)?.trim()?.ifEmpty { null }
+                    ?: Regex("aria-label=\"Abrir ([^\"]+)\"").find(bloque)
+                        ?.groupValues?.get(1)?.trim()
+                    ?: return@mapNotNull null
+                val enlace = "/manga.php?id=" + id
+                ObraHome(enlace, titulo, portada, enlace = enlace)
+            }.toList()
+        }.also {
+            MangaFoxLog.d(ETIQUETA, "home release-card: " + it.size + " obras")
+        }
+    }
 
     /** El home no pagina: pagina 1 = el home; pagina 2+ vacia
      *  honesta (fin inmediato de la cadena, cero peticiones). */
