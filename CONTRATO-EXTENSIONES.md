@@ -46,6 +46,10 @@ extensions/<id>/manifest.json   <- la extensión misma
 | `baseUrl` | dominio público de la fuente                       |
 | `theme`   | tema de parser que habla (ver abajo)               |
 | `apiUrl`  | SOLO fuentes mixtas: backend JSON propio           |
+| `rateLimit` | OPCIONAL: `{requests, seconds}` cortesía del    |
+|           | baseUrl (la APK la aplica a paginas Y portadas      |
+|           | del mismo host). Solo con evidencia (keiyoushi      |
+|           | la declara para la fuente). Sin campo = default.    |
 
 ## manifest.json: campos
 
