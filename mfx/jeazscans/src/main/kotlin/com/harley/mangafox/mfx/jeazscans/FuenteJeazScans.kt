@@ -13,8 +13,6 @@ import com.harley.mangafox.mfx.api.FuenteMfx
 import java.math.BigDecimal
 import java.net.URLEncoder
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.sync.Mutex
-import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 import org.json.JSONObject
@@ -27,18 +25,19 @@ import kotlin.text.RegexOption.DOT_MATCHES_ALL
  * portado del TemaJeaz de la apk vieja (validado en vivo
  * contra el sitio real 20-oct-2026 por el dueno) y re-verificado
  * contra el host vigente lectorhub.j5z.xyz el 21-oct (home con
- * popular-card + release-card, directorio.php con 20 tarjetas
+ * directorio.php server-side con 20 tarjetas/pag y ordenes
  * por pagina y 59 generos en el form, ajax_search JSON,
  * api_capitulos_manga JSON, lector con data-verify BASE64
  * invertido). Vive FUERA de la apk: si el sitio rediseña, se
  * publica un .mfx nuevo desde el repo sin tocar la app.
  *
- * CERO PAGINAS DOBLES (leccion mhscans log 881): populares,
- * ranking, recientes y cargarSeccion(p1) salen TODOS del MISMO
- * GET del home, compartido por cache TTL + single-flight
- * (Mutex): tres secciones en paralelo = UNA sola peticion.
- * El sitio no tiene vista de ranking: sus populares (mas
- * vistos del home) SON su ranking. Nada inventado.
+ * SECCIONES = ORDENES REALES DEL DIRECTORIO (investigacion del
+ * dueno 21-oct + verificado en vivo): recientes=actualizado,
+ * populares=vistas, ranking=votos (TRES listas distintas; el
+ * sitio SI tiene ranking). La home NO se escrapea: sus tarjetas
+ * son seleccion curada via JS; el directorio.php es server-side
+ * y pagina 20/pag. CERO paginas dobles: cada seccion pide SU
+ * orden propio, nunca la misma URL dos veces.
  *
  * Reglas de red del sitio (evidencia keiyoushi + vieja entry):
  * rateLimit 2 peticiones / 1 s y aterrizaje de recuperacion
@@ -51,105 +50,64 @@ class FuenteJeazScans(contexto: ContextoMfx) : FuenteMfx {
 
     private val web: ClienteWeb = contexto.clienteWeb(BASE, RITMO_MS, RECOVERY)
 
-    // ------------------------------------------------------------ home
+    // ------------------------------------------------------------ secciones
 
-    private val cerrojoHome = Mutex()
-    private var htmlHome: String? = null
-    private var expiraHome = 0L
+    /** Ordenes REALES del sitio (select "orden" del form del
+     *  directorio, verificado en vivo 21-oct con el dueño):
+     *  actualizado/vistas/votos/nuevo/viejo/az/za. TRES listas
+     *  reales DISTINTAS: recientes=actualizado (293/258/289),
+     *  populares=vistas (232/236/241), ranking=votos (232/233/237).
+     *  La home YA NO se escrapea (seleccion curada via JS): el
+     *  directorio es server-side y pagina 20/pag de verdad. */
+    private val vistosPorSeccion =
+        mutableMapOf<Seccion, MutableSet<String>>()
 
-    /** Home compartido: cache TTL 60 s + single-flight. Tres
-     *  secciones en paralelo = UN GET; el cache lo dice todo. */
-    private suspend fun home(): String? = cerrojoHome.withLock {
-        val ahora = System.currentTimeMillis()
-        if (htmlHome != null && ahora < expiraHome) {
-            MangaFoxLog.d(ETIQUETA, "home en cache (TTL)")
-            return@withLock htmlHome
-        }
-        val html = web.getHtml("/")
-        htmlHome = html
-        expiraHome = ahora + TTL_HOME_MS
-        MangaFoxLog.d(ETIQUETA, if (html != null)
-            "home GET (" + html.length + " B, cache " + TTL_HOME_MS / 1000 + " s)"
-        else "home cayo")
-        html
+    private fun ordenDe(seccion: Seccion): String = when (seccion) {
+        Seccion.RECIENTES -> "actualizado"
+        Seccion.POPULARES -> "vistas"
+        Seccion.RANKING -> "votos"
     }
+
+    override suspend fun cargarRecientes(): List<ObraHome> =
+        cargarSeccion(Seccion.RECIENTES, 1)
 
     override suspend fun cargarPopulares(): List<ObraHome> =
-        desdeHome("popular-card")
+        cargarSeccion(Seccion.POPULARES, 1)
 
-    /** El sitio no tiene ranking: sus populares SON su ranking.
-     *  Con el cache de home es CERO peticiones extra. */
+    /** Ranking REAL del sitio (Mejor valorados, orden=votos) y NO
+     *  una copia de populares: listas distintas verificadas. */
     override suspend fun cargarRanking(): List<ObraHome> =
-        desdeHome("popular-card")
+        cargarSeccion(Seccion.RANKING, 1)
 
-    /** Recientes del home: article.release-card con a.release-cover
-     *  (aria-label) e img (alt). El anchor YA NO lleva la marca
-     *  release-card (log 760: el regex del viejo TemaJeaz daba 0
-     *  aqui; el sitio movio la marca al article). Bloque por
-     *  article, verificado en vivo 21-oct: 12 recientes. */
-    override suspend fun cargarRecientes(): List<ObraHome> {
-        val html = home() ?: return emptyList()
-        val vistos = mutableSetOf<String>()
-        return withContext(Dispatchers.IO) {
-            Regex(
-                "<article class=\"release-card[^>]*>(.*?)</article>",
-                DOT_MATCHES_ALL
-            ).findAll(html).mapNotNull { b ->
-                val bloque = b.groupValues[1]
-                val id = Regex("href=\"manga\\.php\\?id=(\\d+)\"")
-                    .find(bloque)?.groupValues?.get(1) ?: return@mapNotNull null
-                if (!vistos.add(id)) return@mapNotNull null
-                val img = Regex("<img[^>]*>").find(bloque)?.value
-                    ?: return@mapNotNull null
-                val portada = Regex("src=\"([^\"]+)\"").find(img)
-                    ?.groupValues?.get(1)?.let { resolver(it) }
-                    ?: return@mapNotNull null
-                val titulo = Regex("alt=\"([^\"]*)\"").find(img)
-                    ?.groupValues?.get(1)?.trim()?.ifEmpty { null }
-                    ?: Regex("aria-label=\"Abrir ([^\"]+)\"").find(bloque)
-                        ?.groupValues?.get(1)?.trim()
-                    ?: return@mapNotNull null
-                val enlace = "/manga.php?id=" + id
-                ObraHome(enlace, titulo, portada, enlace = enlace)
-            }.toList()
-        }.also {
-            MangaFoxLog.d(ETIQUETA, "home release-card: " + it.size + " obras")
-        }
-    }
-
-    /** El home no pagina: pagina 1 = el home; pagina 2+ vacia
-     *  honesta (fin inmediato de la cadena, cero peticiones). */
+    /** Seccion = directorio paginado (20/pag, base 1). FIN
+     *  honesto en pagina cuyas obras sean TODAS ya vistas: el
+     *  sitio REPITE la ultima pagina al desbordar (verificado:
+     *  p4==p3 con el mismo id; jamas manda vacio), y el dedupe
+     *  por id convierte esa repeticion en FIN. La pagina parcial
+     *  SI es nueva y se entrega (41 series: 20+20+1). Pagina 1
+     *  reinicia el registro (carga fresca de la base). */
     override suspend fun cargarSeccion(
         seccion: Seccion,
         pagina: Int
-    ): List<ObraHome> = when (pagina) {
-        1 -> when (seccion) {
-            Seccion.RECIENTES -> cargarRecientes()
-            Seccion.POPULARES, Seccion.RANKING -> cargarPopulares()
+    ): List<ObraHome> {
+        if (pagina < 1) return emptyList()
+        val html = web.getHtml(
+            "/directorio.php?orden=" + ordenDe(seccion) + "&page=" + pagina
+        ) ?: return emptyList()
+        val vistos = if (pagina == 1) {
+            mutableSetOf<String>().also { vistosPorSeccion[seccion] = it }
+        } else {
+            vistosPorSeccion.getOrPut(seccion) { mutableSetOf() }
         }
-        else -> emptyList()
-    }
-
-    /** Tarjetas del home: img (alt = titulo) y enlace
-     *  manga.php?id=N (verificado en vivo 21-oct: 24 tarjetas). */
-    private suspend fun desdeHome(marca: String): List<ObraHome> {
-        val html = home() ?: return emptyList()
-        val vistos = mutableSetOf<String>()
-        return withContext(Dispatchers.IO) {
-            Regex(
-                "<a[^>]*href=\"(manga\\.php\\?id=\\d+)\"[^>]*class=\"" + marca +
-                    "\"[^>]*>.*?<img[^>]*src=\"([^\"]+)\"[^>]*alt=\"([^\"]*)\"",
-                DOT_MATCHES_ALL
-            ).findAll(html).mapNotNull { m ->
-                val enlace = "/" + m.groupValues[1]
-                if (!vistos.add(enlace)) return@mapNotNull null
-                val portada = resolver(m.groupValues[2]) ?: return@mapNotNull null
-                val titulo = m.groupValues[3].trim().ifEmpty { enlace }
-                ObraHome(enlace, titulo, portada, enlace = enlace)
-            }.toList()
-        }.also {
-            MangaFoxLog.d(ETIQUETA, "home " + marca + ": " + it.size + " obras")
+        val nuevas = withContext(Dispatchers.IO) {
+            parsearDirectorio(html).filter { vistos.add(it.id) }
         }
+        MangaFoxLog.d(
+            ETIQUETA, "seccion " + seccion.name + " pag=" + pagina +
+                ": " + nuevas.size + " nuevas" +
+                (if (nuevas.isEmpty()) " (FIN: repeticion)" else "")
+        )
+        return nuevas
     }
 
     // ------------------------------------------------------------ generos
@@ -462,7 +420,6 @@ class FuenteJeazScans(contexto: ContextoMfx) : FuenteMfx {
         const val BASE = "https://lectorhub.j5z.xyz"
         const val RECOVERY = "https://jeazscans.com"
         const val RITMO_MS = 500L
-        const val TTL_HOME_MS = 60_000L
         const val CAPITULOS_POR_LOTE = 30
     }
 }
