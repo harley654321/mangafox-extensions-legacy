@@ -4,6 +4,6 @@ plugins { kotlin("jvm") }
 // de MangaFox (workflow build-mfx); nunca se duplica a mano.
 dependencies {
     compileOnly(files(rootProject.providers.gradleProperty("androidJar").get()))
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 }
 kotlin { jvmToolchain(17) }

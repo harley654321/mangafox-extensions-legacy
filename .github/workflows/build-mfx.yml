@@ -51,7 +51,8 @@ jobs:
       - name: Compilar api.jar y extension
         working-directory: ext
         run: |
-          gradle --no-daemon -PandroidJar="$ANDROID_JAR" :api:jar :mfx-mhscans:jar
+          chmod +x gradlew
+          ./gradlew --no-daemon -PandroidJar="$ANDROID_JAR" :api:jar :mfx-mhscans:jar
 
       - name: Empaquetar, firmar y parchear index
         working-directory: ext
