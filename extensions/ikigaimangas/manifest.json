@@ -2,11 +2,11 @@
   "id": "ikigaimangas",
   "name": "Ikigai Mangas",
   "lang": "es",
-  "version": 2,
+  "version": 3,
   "apiVersion": 1,
   "description": "Manhwa en espanol. Contenido para adultos (+18).",
   "contentRating": "mature",
-  "status": "alpha",
+  "status": "beta",
   "network": {
     "baseUrl": "https://visorikigai.gettocaboca.com",
     "domainRecoveryUrl": "https://ikigaimangas.com",
@@ -21,8 +21,8 @@
   "parser": {
     "type": "html-theme",
     "reference": "keiyoushi/extensions-source: src/es/ikigaimangas",
-    "status": "pending",
-    "note": "Fuente de tema web (HTML). Los endpoints y selectores especificos se definen cuando la app implemente el parser de tema."
+    "status": "implemented",
+    "note": "Tema quemado en la apk (ikigai); endpoints verificados en vivo 20-oct-2026."
   },
   "content": {
     "seriesType": "comic"

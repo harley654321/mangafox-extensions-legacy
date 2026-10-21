@@ -34,9 +34,9 @@
       "id": "mhscans",
       "name": "MHScans",
       "lang": "es",
-      "version": 2,
+      "version": 3,
       "apiVersion": 1,
-      "status": "alpha",
+      "status": "beta",
       "description": "Scanlation en espanol: manga, manhwa y manhua.",
       "manifest": "extensions/mhscans/manifest.json",
       "icon": "https://www.google.com/s2/favicons?domain=mhscans.com&sz=128",
@@ -45,27 +45,30 @@
       "rateLimit": {
         "requests": 1,
         "seconds": 3
-      }
+      },
+      "recoveryUrl": "https://mhscans.com"
     },
     {
       "id": "ragnascans",
       "name": "Ragna Scans",
       "lang": "es",
-      "version": 1,
+      "version": 2,
       "apiVersion": 1,
-      "status": "alpha",
+      "status": "beta",
       "description": "Ragna Scans en espanol, lectores propios.",
       "manifest": "extensions/ragnascans/manifest.json",
       "icon": "https://lector.ragnascan.xyz/assets/Logo.png?v=20260511",
-      "baseUrl": "https://lector.ragnascan.xyz"
+      "baseUrl": "https://lector.ragnascan.xyz",
+      "recoveryUrl": "https://ragnascan.xyz",
+      "theme": "ragna"
     },
     {
       "id": "richtoscan",
       "name": "RichtoScan",
       "lang": "es",
-      "version": 2,
+      "version": 3,
       "apiVersion": 1,
-      "status": "alpha",
+      "status": "beta",
       "description": "RichtoScan en espanol.",
       "manifest": "extensions/richtoscan/manifest.json",
       "icon": "https://r1.richtoon.top/wp-content/uploads/2017/10/1718126664946_11zon98.jpg",
@@ -74,15 +77,16 @@
       "rateLimit": {
         "requests": 2,
         "seconds": 1
-      }
+      },
+      "recoveryUrl": "https://richtoscan.com"
     },
     {
       "id": "ikigaimangas",
       "name": "Ikigai Mangas",
       "lang": "es",
-      "version": 2,
+      "version": 3,
       "apiVersion": 1,
-      "status": "alpha",
+      "status": "beta",
       "description": "Manhwa en espanol. Contenido para adultos (+18).",
       "manifest": "extensions/ikigaimangas/manifest.json",
       "icon": "https://www.google.com/s2/favicons?domain=ikigaimangas.com&sz=128",
@@ -90,15 +94,17 @@
       "rateLimit": {
         "requests": 1,
         "seconds": 2
-      }
+      },
+      "recoveryUrl": "https://ikigaimangas.com",
+      "theme": "ikigai"
     },
     {
       "id": "jeazscans",
       "name": "Jeaz Scans",
       "lang": "es",
-      "version": 2,
+      "version": 3,
       "apiVersion": 1,
-      "status": "alpha",
+      "status": "beta",
       "description": "Jeaz Scans en espanol.",
       "manifest": "extensions/jeazscans/manifest.json",
       "icon": "https://www.google.com/s2/favicons?domain=lectorhub.j5z.xyz&sz=128",
@@ -106,7 +112,9 @@
       "rateLimit": {
         "requests": 2,
         "seconds": 1
-      }
+      },
+      "recoveryUrl": "https://jeazscans.com",
+      "theme": "jeaz"
     },
     {
       "id": "mangacrab",
