@@ -9,6 +9,9 @@
 #      (la clave pineada en la APK) antes de tocar nada.
 #   4. Publica: index.json actualizado en main + .mfx en la rama
 #      builds (commit vigente reemplazado).
+# Committers del CI: identidad oficial github-actions[bot]. Antes se usaba
+# "ci@users.noreply.github.com" y GitHub lo atribuia al usuario real "ci"
+# (Catalin), apareciendo como contribuidor ajeno en el repo (log 21-oct).
 name: build-mfx
 
 on:
@@ -75,8 +78,8 @@ jobs:
 
       - name: Publicar index en main
         run: |
-          git config user.name "mfx-ci"
-          git config user.email "ci@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if git diff --quiet index.json; then
             echo "index sin cambios"
           else
@@ -94,8 +97,8 @@ jobs:
           cp mfx/jeazscans/build/mfx/jeazscans.mfx pub/mfx/
           cd pub
           git init -q
-          git config user.name "mfx-ci"
-          git config user.email "ci@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -q -b builds
           git add mfx
           git commit -q -m "build mfx: firmados y verificados (mhscans + jeazscans)"
